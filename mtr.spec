@@ -1,7 +1,7 @@
 Summary:	Ping/Traceroute network diagnostic tool
 Name:		mtr
-Version:	0.71
-Release:	%mkrel 2
+Version:	0.72
+Release:	%mkrel 1
 Group:		Networking/Other
 License:	GPL
 URL:		http://www.BitWizard.nl/mtr
