@@ -91,7 +91,7 @@ cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 Name=Xmtr
 Comment="Ping/Traceroute network diagnostic tool"
 Exec=%{_bindir}/xmtr
-Icon=%{name}.png
+Icon=%{name}
 Terminal=false
 Type=Application
 Categories=GTK;X-MandrivaLinux-System-Monitoring;System;Monitor;
