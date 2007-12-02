@@ -1,15 +1,14 @@
 Summary:	Ping/Traceroute network diagnostic tool
 Name:		mtr
 Version:	0.72
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		Networking/Other
-License:	GPL
-URL:		http://www.BitWizard.nl/mtr
+License:	GPLv2+
+URL:		http://www.bitwizard.nl/mtr
 Source0:	ftp://ftp.bitwizard.nl/mtr/%{name}-%{version}.tar.bz2
 Patch0:		mtr-0.69-CVE-2002-0497.patch
 BuildRequires:	ImageMagick
 BuildRequires:	gtk-devel
-#BuildRequires:	automake1.7
 BuildRequires:	autoconf2.5
 Buildroot:	%{_tmppath}/%{name}-buildroot
 
@@ -35,13 +34,9 @@ This is the Gtk interface for the mtr network diagnostic tool.
 
 %build
 export WANT_AUTOCONF_2_5=1
-#rm -f configure
-#rm -rf autom4te.cache
-#libtoolize --copy --force && aclocal-1.7 && autoconf --force && autoheader
 autoconf
 
 %configure2_5x
-
 %make && mv mtr xmtr && %make distclean
 
 # mmm, broken configure script
@@ -73,28 +68,17 @@ install -m755 xmtr %{buildroot}%{_bindir}/
 
 ln -s ../sbin/mtr %{buildroot}%{_bindir}/mtr
 
-cat > %{buildroot}/%{_menudir}/%{name} <<EOF
-?package(xmtr-gtk): \
-command="%{_bindir}/xmtr" \
-icon="%{name}.png" \
-title="Xmtr" \
-longtitle="Ping/Traceroute network diagnostic tool" \
-needs="X11" \
-section="System/Monitoring" \
-xdg="true"
-EOF
-
 # XDG menu
 install -d %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Xmtr
-Comment="Ping/Traceroute network diagnostic tool"
+Comment=Ping/Traceroute network diagnostic tool
 Exec=%{_bindir}/xmtr
 Icon=%{name}
 Terminal=false
 Type=Application
-Categories=GTK;X-MandrivaLinux-System-Monitoring;System;Monitor;
+Categories=GTK;System;Monitor;
 EOF
 
 %post gtk
@@ -122,7 +106,4 @@ EOF
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
-%{_menudir}/%{name}
 %{_datadir}/applications/*.desktop
-
-
