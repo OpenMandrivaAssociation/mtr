@@ -10,7 +10,6 @@ Patch0:		mtr-0.69-CVE-2002-0497.patch
 BuildRequires:	ImageMagick
 BuildRequires:	gtk-devel
 BuildRequires:	autoconf2.5
-Buildroot:	%{_tmppath}/%{name}-buildroot
 
 %description
 Mtr is a network diagnostic tool which combines Ping and Traceroute into one
