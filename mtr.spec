@@ -13,7 +13,9 @@ Patch1:		mtr-0.69-format.patch
 Patch2:		mtr-0.71-underflow.patch
 
 BuildRequires:	ImageMagick
-BuildRequires:	gtk2-devel
+BuildRequires:  gtk2-devel
+# fhimpe: otherwise it fails with error: possibly undefined macro: AM_PATH_GTK
+BuildRequires:	libgtk+-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	autoconf
 Buildroot:	%{_tmppath}/%{name}-buildroot
