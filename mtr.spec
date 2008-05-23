@@ -1,16 +1,21 @@
 Summary:	Ping/Traceroute network diagnostic tool
 Name:		mtr
-Version:	0.72
-Release:	%mkrel 4
+Version:	0.73
+Release:	%mkrel 1
 Group:		Networking/Other
 License:	GPLv2+
 URL:		http://www.bitwizard.nl/mtr
-Source0:	ftp://ftp.bitwizard.nl/mtr/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.bitwizard.nl/mtr/%{name}-%{version}.tar.gz
+# fhimpe: fedora patches
 Patch0:		mtr-0.69-CVE-2002-0497.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=147865
+Patch1:		mtr-0.69-format.patch
+Patch2:		mtr-0.71-underflow.patch
+
 BuildRequires:	ImageMagick
 BuildRequires:	gtk2-devel
 BuildRequires:	ncurses-devel
-BuildRequires:	autoconf2.5
+BuildRequires:	autoconf
 Buildroot:	%{_tmppath}/%{name}-buildroot
 
 %description
@@ -32,11 +37,11 @@ This is the Gtk interface for the mtr network diagnostic tool.
 
 %setup -q
 %patch0 -p1 -b .CVE-2002-0497
+%patch1 -p1 -b .format
+%patch2 -p1 -b .underflow
 
 %build
-export WANT_AUTOCONF_2_5=1
-autoconf
-
+autoreconf
 %configure2_5x \
     --enable-gtk2
 
@@ -50,7 +55,7 @@ autoconf
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_sbindir}
