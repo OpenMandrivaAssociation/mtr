@@ -1,7 +1,7 @@
 Summary:	Ping/Traceroute network diagnostic tool
 Name:		mtr
-Version:	0.73
-Release:	%mkrel 2
+Version:	0.74
+Release:	%mkrel 1
 Group:		Networking/Other
 License:	GPLv2+
 URL:		http://www.bitwizard.nl/mtr
@@ -11,14 +11,13 @@ Patch0:		mtr-0.69-CVE-2002-0497.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=147865
 Patch1:		mtr-0.69-format.patch
 Patch2:		mtr-0.71-underflow.patch
-
 BuildRequires:	ImageMagick
 BuildRequires:  gtk2-devel
 # fhimpe: otherwise it fails with error: possibly undefined macro: AM_PATH_GTK
 BuildRequires:	libgtk+-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	autoconf
-Buildroot:	%{_tmppath}/%{name}-buildroot
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Mtr is a network diagnostic tool which combines Ping and Traceroute into one
@@ -104,7 +103,7 @@ EOF
 %endif
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
