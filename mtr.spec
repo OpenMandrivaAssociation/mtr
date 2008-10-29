@@ -1,17 +1,13 @@
 Summary:	Ping/Traceroute network diagnostic tool
 Name:		mtr
-Version:	0.74
+Version:	0.75
 Release:	%mkrel 1
 Group:		Networking/Other
 License:	GPLv2+
 URL:		http://www.bitwizard.nl/mtr
 Source0:	ftp://ftp.bitwizard.nl/mtr/%{name}-%{version}.tar.gz
-# fhimpe: fedora patches
-Patch0:		mtr-0.69-CVE-2002-0497.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=147865
-Patch1:		mtr-0.69-format.patch
 Patch2:		mtr-0.71-underflow.patch
-BuildRequires:	ImageMagick
+BuildRequires:	imagemagick
 BuildRequires:  gtk2-devel
 # fhimpe: otherwise it fails with error: possibly undefined macro: AM_PATH_GTK
 BuildRequires:	libgtk+-devel
@@ -37,8 +33,6 @@ This is the Gtk interface for the mtr network diagnostic tool.
 %prep
 
 %setup -q
-%patch0 -p1 -b .CVE-2002-0497
-%patch1 -p1 -b .format
 %patch2 -p1 -b .underflow
 
 %build
