@@ -6,7 +6,7 @@ Group:		Networking/Other
 License:	GPLv2+
 URL:		http://www.bitwizard.nl/mtr
 Source0:	ftp://ftp.bitwizard.nl/mtr/%{name}-%{version}.tar.gz
-Patch2:		mtr-0.71-underflow.patch
+Patch0:		mtr-0.71-underflow.patch
 BuildRequires:	imagemagick
 BuildRequires:  gtk2-devel
 # fhimpe: otherwise it fails with error: possibly undefined macro: AM_PATH_GTK
@@ -33,7 +33,7 @@ This is the Gtk interface for the mtr network diagnostic tool.
 %prep
 
 %setup -q
-%patch2 -p1 -b .underflow
+%patch0 -p0 -b .underflow
 
 %build
 autoreconf
