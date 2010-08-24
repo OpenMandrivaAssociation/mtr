@@ -1,7 +1,7 @@
 Summary:	Ping/Traceroute network diagnostic tool
 Name:		mtr
-Version:	0.75
-Release:	%mkrel 3
+Version:	0.80
+Release:	%mkrel 1
 Group:		Networking/Other
 License:	GPLv2+
 URL:		http://www.bitwizard.nl/mtr
@@ -31,7 +31,6 @@ Requires(postun): desktop-file-utils
 This is the Gtk interface for the mtr network diagnostic tool.
 
 %prep
-
 %setup -q
 %patch0 -p0 -b .underflow
 
