@@ -1,7 +1,7 @@
 Summary:	Ping/Traceroute network diagnostic tool
 Name:		mtr
 Version:	0.80
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		Networking/Other
 License:	GPLv2+
 URL:		http://www.bitwizard.nl/mtr
@@ -9,8 +9,6 @@ Source0:	ftp://ftp.bitwizard.nl/mtr/%{name}-%{version}.tar.gz
 Patch0:		mtr-0.71-underflow.patch
 BuildRequires:	imagemagick
 BuildRequires:  gtk2-devel
-# fhimpe: otherwise it fails with error: possibly undefined macro: AM_PATH_GTK
-BuildRequires:	libgtk+-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	autoconf
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
