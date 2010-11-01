@@ -1,12 +1,15 @@
 Summary:	Ping/Traceroute network diagnostic tool
 Name:		mtr
 Version:	0.80
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		Networking/Other
 License:	GPLv2+
 URL:		http://www.bitwizard.nl/mtr
 Source0:	ftp://ftp.bitwizard.nl/mtr/%{name}-%{version}.tar.gz
 Patch0:		mtr-0.71-underflow.patch
+Patch1:		mtr-crash-in-xml-mode.patch
+Patch2:		mtr-xml-format-fixes.patch
+Patch3:		mtr-now-waits-for-last-response.patch
 BuildRequires:	imagemagick
 BuildRequires:  gtk2-devel
 BuildRequires:	ncurses-devel
@@ -31,6 +34,9 @@ This is the Gtk interface for the mtr network diagnostic tool.
 %prep
 %setup -q
 %patch0 -p0 -b .underflow
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 autoreconf
