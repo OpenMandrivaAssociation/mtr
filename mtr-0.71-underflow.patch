@@ -1,0 +1,14 @@
+--- net.c	2008-09-19 11:37:57.000000000 +0200
++++ net.c.oden	2009-10-05 14:02:28.000000000 +0200
+@@ -460,8 +460,9 @@ void net_process_ping(int seq, void * ad
+ 
+   totusec = (now.tv_sec  - sequence[seq].time.tv_sec ) * 1000000 +
+             (now.tv_usec - sequence[seq].time.tv_usec);
+-  /* impossible? if( totusec < 0 ) totusec = 0 */;
+-
++  /* sometimes < 0 */
++  totusec = abs(totusec);
++  
+   if ( addrcmp( (void *) &(host[index].addr),
+ 		(void *) &unspec_addr, af ) == 0 ) {
+     /* should be out of if as addr can change */

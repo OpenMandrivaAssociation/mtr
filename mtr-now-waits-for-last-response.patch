@@ -1,0 +1,37 @@
+From c196de71466b475192fb4c1910fbcaf91ba36ae7 Mon Sep 17 00:00:00 2001
+From: Jan Gorig <jgorig@redhat.com>
+Date: Tue, 26 Oct 2010 10:02:45 +0200
+Subject: [PATCH 3/3] mtr now waits for last response
+
+---
+ select.c |    6 ++++--
+ 1 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/select.c b/select.c
+index a53017f..d8e460f 100644
+--- a/select.c
++++ b/select.c
+@@ -50,6 +50,7 @@ void select_loop(void) {
+   int dnsfd, netfd;
+   int NumPing = 0;
+   int paused = 0;
++  int quit = 0;
+   struct timeval lasttime, thistime, selecttime;
+   int dt;
+   int rv; 
+@@ -97,9 +98,10 @@ void select_loop(void) {
+ 	   (thistime.tv_sec == lasttime.tv_sec + intervaltime.tv_sec &&
+ 	    thistime.tv_usec >= lasttime.tv_usec + intervaltime.tv_usec)) {
+ 	  lasttime = thistime;
++	  if(quit == 1) return;
+ 	  if(NumPing >= MaxPing && (!Interactive || ForceMaxPing))
+-	    return;
+-	  if (net_send_batch())
++	    quit = 1;
++	  else if (net_send_batch())
+ 	    NumPing++;
+ 	}
+ 
+-- 
+1.7.3.1
+

@@ -1,0 +1,52 @@
+From 9932c19ce5f5c66fca3b1e2cab42348e3babcda6 Mon Sep 17 00:00:00 2001
+From: Jan Gorig <jgorig@redhat.com>
+Date: Mon, 25 Oct 2010 12:56:13 +0200
+Subject: [PATCH 2/3] XML format fixes
+
+---
+ report.c |   16 ++++++++--------
+ 1 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/report.c b/report.c
+index 49dfcfb..4c67358 100644
+--- a/report.c
++++ b/report.c
+@@ -185,19 +185,19 @@ void xml_close(void)
+   char name[81];
+   struct hostent *host;
+ 
+-  printf("<MTR SRC=%s DST=%s", LocalHostname, Hostname);
+-  printf(" TOS=0x%X", tos);
++  printf("<MTR SRC=\"%s\" DST=\"%s\"", LocalHostname, Hostname);
++  printf(" TOS=\"0x%X\"", tos);
+   if(cpacketsize >= 0) {
+-    printf(" PSIZE=%d", cpacketsize);
++    printf(" PSIZE=\"%d\"", cpacketsize);
+   } else {
+-    printf(" PSIZE=rand(%d-%d)",MINPACKET, -cpacketsize);
++    printf(" PSIZE=\"rand(%d-%d)\"",MINPACKET, -cpacketsize);
+   }
+   if( bitpattern>=0 ) {
+-    printf(" BITPATTERN=0x%02X", (unsigned char)(bitpattern));
++    printf(" BITPATTERN=\"0x%02X\"", (unsigned char)(bitpattern));
+   } else {
+-    printf(" BITPATTERN=rand(0x00-FF)");
++    printf(" BITPATTERN=\"rand(0x00-FF)\"");
+   }
+-  printf(" TESTS=%d>\n", MaxPing);
++  printf(" TESTS=\"%d\">\n", MaxPing);
+ 
+   max = net_max();
+   at  = net_min();
+@@ -217,7 +217,7 @@ void xml_close(void)
+       }
+     }
+ 
+-    printf("    <HUB COUNT=%d HOST=%s>\n", at+1, name);
++    printf("    <HUB COUNT=\"%d\" HOST=\"%s\">\n", at+1, name);
+     for( i=0; i<MAXFLD; i++ ) {
+       j = fld_index[fld_active[i]];
+       if (j <= 0) continue;
+-- 
+1.7.3.1
+
