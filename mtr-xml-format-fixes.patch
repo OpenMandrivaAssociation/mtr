@@ -1,19 +1,9 @@
-From 9932c19ce5f5c66fca3b1e2cab42348e3babcda6 Mon Sep 17 00:00:00 2001
-From: Jan Gorig <jgorig@redhat.com>
-Date: Mon, 25 Oct 2010 12:56:13 +0200
-Subject: [PATCH 2/3] XML format fixes
-
----
- report.c |   16 ++++++++--------
- 1 files changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/report.c b/report.c
-index 49dfcfb..4c67358 100644
---- a/report.c
-+++ b/report.c
-@@ -185,19 +185,19 @@ void xml_close(void)
+diff -urN mtr-0.85/report.c mtr-0.85-patched/report.c
+--- mtr-0.85/report.c	2013-06-26 19:25:56.000000000 +1100
++++ mtr-0.85-patched/report.c	2014-03-19 03:59:13.751705864 +1100
+@@ -271,19 +271,19 @@
+   ip_t *addr;
    char name[81];
-   struct hostent *host;
  
 -  printf("<MTR SRC=%s DST=%s", LocalHostname, Hostname);
 -  printf(" TOS=0x%X", tos);
@@ -38,15 +28,12 @@ index 49dfcfb..4c67358 100644
  
    max = net_max();
    at  = net_min();
-@@ -217,7 +217,7 @@ void xml_close(void)
-       }
-     }
+@@ -291,7 +291,7 @@
+     addr = net_addr(at);
+     snprint_addr(name, sizeof(name), addr);
  
 -    printf("    <HUB COUNT=%d HOST=%s>\n", at+1, name);
 +    printf("    <HUB COUNT=\"%d\" HOST=\"%s\">\n", at+1, name);
      for( i=0; i<MAXFLD; i++ ) {
        j = fld_index[fld_active[i]];
-       if (j <= 0) continue;
--- 
-1.7.3.1
-
+       if (j < 0) continue;
