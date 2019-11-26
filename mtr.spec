@@ -1,16 +1,14 @@
 Summary:	Ping/Traceroute network diagnostic tool
 Name:		mtr
-Version:	0.85
-Release:	2
+Version:	0.93
+Release:	1
 License:	GPLv2+
 Group:		Networking/Other
 Url:		http://www.bitwizard.nl/mtr
-Source0:	ftp://ftp.bitwizard.nl/mtr/%{name}-%{version}.tar.gz
-Patch0:		mtr-0.71-underflow.patch
-Patch1:		mtr-xml-format-fixes.patch
-Patch2:		mtr-crash-in-xml-mode.patch
-Patch3:		mtr-now-waits-for-last-response.patch
+Source0:	https://github.com/traviscross/mtr/archive/v%{version}/%{name}-%{version}.tar.gz
+
 BuildRequires:	imagemagick
+BuildRequires:  autoconf
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(ncurses)
 
@@ -47,45 +45,28 @@ This is the Gtk interface for the mtr network diagnostic tool.
 
 %prep
 %setup -q
-%patch0 -p0 -b .underflow
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-touch ChangeLog
+%autopatch -p1
 
 %build
-autoreconf -fi
-%configure2_5x \
-	--enable-gtk2
+autoreconf -vfi
+%configure2_5x
+%make_build && mv mtr xmtr && %make_build distclean
 
-%make && mv mtr xmtr && make clean
-
-# mmm, broken configure script
-#export GTK_CONFIG=/dev/null 
-%configure2_5x \
-	--without-gtk
-
-%make
+%configure \
+    --sbindir=%{_bindir} \
+    --without-gtk
+%make_build
 
 %install
+%make_install
+
+for size in 16x16 32x32 48x48; do
+install -d %{buildroot}%{_iconsdir}/hicolor/${size}/apps/
+convert img/mtr_icon.xpm -size ${size} %{buildroot}%{_iconsdir}/hicolor/${size}/apps/%{name}.png
+done
+
 install -d %{buildroot}%{_bindir}
-install -d %{buildroot}%{_sbindir}
-install -d %{buildroot}%{_mandir}/man8
-install -d %{buildroot}%{_miconsdir}
-install -d %{buildroot}%{_iconsdir}
-install -d %{buildroot}%{_liconsdir}
-install -d %{buildroot}%{_menudir}
-
-%makeinstall_std
-
-# convert the icon
-convert img/mtr_icon.xpm -size 16x16 %{buildroot}%{_miconsdir}/%{name}.png
-convert img/mtr_icon.xpm -size 32x32 %{buildroot}%{_iconsdir}/%{name}.png
-convert img/mtr_icon.xpm -size 48x48 %{buildroot}%{_liconsdir}/%{name}.png
-
-install -m755 xmtr %{buildroot}%{_bindir}/
-
-ln -s ../sbin/mtr %{buildroot}%{_bindir}/mtr
+install -m755 xmtr %{buildroot}%{_bindir}/xmtr
 
 # XDG menu
 install -d %{buildroot}%{_datadir}/applications
@@ -93,10 +74,23 @@ cat > %{buildroot}%{_datadir}/applications/%{name}.desktop << EOF
 [Desktop Entry]
 Name=Xmtr
 Comment=Ping/Traceroute network diagnostic tool
-Exec=%{_bindir}/xmtr
+Exec=xmtr
 Icon=%{name}
 Terminal=false
 Type=Application
 Categories=GTK;System;Monitor;
 EOF
+
+%files
+%doc AUTHORS FORMATS NEWS README.md SECURITY TODO
+%attr(-,root,ntools) %{_bindir}/mtr
+%attr(-,root,ntools) %caps(cap_net_raw+ep) %{_bindir}/mtr-packet
+%{_datadir}/bash-completion/completions/mtr
+%{_mandir}/man8/mtr.8*
+%{_mandir}/man8/mtr-packet.8*
+
+%files gtk
+%attr(-,root,ntools) %{_bindir}/xmtr
+%{_iconsdir}/hicolor/*/apps/%{name}.png
+%{_datadir}/applications/%{name}.desktop
 
