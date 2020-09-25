@@ -1,6 +1,6 @@
 Summary:	Ping/Traceroute network diagnostic tool
 Name:		mtr
-Version:	0.93
+Version:	0.94
 Release:	1
 License:	GPLv2+
 Group:		Networking/Other
