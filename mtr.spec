@@ -1,6 +1,6 @@
 Summary:	Ping/Traceroute network diagnostic tool
 Name:		mtr
-Version:	0.94
+Version:	0.95
 Release:	1
 License:	GPLv2+
 Group:		Networking/Other
@@ -9,8 +9,9 @@ Source0:	https://github.com/traviscross/mtr/archive/v%{version}/%{name}-%{versio
 
 BuildRequires:	imagemagick
 BuildRequires:  autoconf
-BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(ncurses)
+BuildRequires:	pkgconfig(jansson)
 
 %description
 Mtr is a network diagnostic tool which combines Ping and Traceroute into one
