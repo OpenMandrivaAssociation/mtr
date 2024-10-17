@@ -4,7 +4,7 @@ Version:	0.95
 Release:	1
 License:	GPLv2+
 Group:		Networking/Other
-Url:		http://www.bitwizard.nl/mtr
+Url:		https://www.bitwizard.nl/mtr
 Source0:	https://github.com/traviscross/mtr/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:	imagemagick
