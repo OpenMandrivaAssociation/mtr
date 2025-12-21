@@ -7,6 +7,10 @@ Group:		Networking/Other
 Url:		https://www.bitwizard.nl/mtr
 Source0:	https://github.com/traviscross/mtr/archive/v%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	imagemagick
 BuildRequires:  autoconf
 BuildRequires:	pkgconfig(gtk+-3.0)
